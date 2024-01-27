@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using CustomerPurchaseRecord.DataService.Repositories.Interface;
+using CustomerPurchaseRecord.Entities.DbSet;
+using CustomerPurchaseRecord.Entities.Dtos.Requests;
+using CustomerPurchaseRecord.Entities.Dtos.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerPurchaseRecord.API.Controllers;
@@ -8,8 +11,8 @@ namespace CustomerPurchaseRecord.API.Controllers;
 public class TransactionDetailsController : BaseController
 {
     public TransactionDetailsController(
-        IUnitOfWork unitOfWork, 
-        IMapper mapper) 
+        IUnitOfWork unitOfWork,
+        IMapper mapper)
    : base(unitOfWork, mapper)
     {
     }
@@ -19,6 +22,28 @@ public class TransactionDetailsController : BaseController
     {
         var transactionDetails = await _unitOfWork.TransactionDetails.GetAll();
 
-        return Ok(transactionDetails);
+        return Ok(_mapper.Map<IEnumerable<GetTransactionDetailDto>>(transactionDetails));
+    }
+
+    [HttpGet("{transactionId}")]
+    public async Task<IActionResult> GetTransactionDetail(int transactionId)
+    {
+        var result = await _unitOfWork.TransactionDetails.GetById(transactionId);
+
+        return Ok(_mapper.Map<GetTransactionDetailDto>(result));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateTransactionDetailDto transactionDetail)
+    {
+        if (!ModelState.IsValid) return BadRequest();
+
+        var result = _mapper.Map<TransactionDetails>(transactionDetail);
+
+        await _unitOfWork.TransactionDetails.Add(result);
+
+        await _unitOfWork.SaveAsync();
+
+        return CreatedAtAction(nameof(GetTransactionDetail), new { transactionId = result.Id }, result);
     }
 }

@@ -15,5 +15,10 @@ public class RequestToDomain : Profile
             .ForMember(
                 des => des.LastName,
                 option => option.MapFrom(src => src.Lastname));
+
+        CreateMap<CreateTransactionDetailDto, TransactionDetails>()
+            .ForMember(
+                destination => destination.CreatedDate,
+                option => option.MapFrom(src => DateTime.UtcNow));
     }
 }

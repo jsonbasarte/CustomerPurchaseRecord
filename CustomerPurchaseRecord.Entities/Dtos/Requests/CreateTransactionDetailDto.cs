@@ -1,11 +1,9 @@
-﻿namespace CustomerPurchaseRecord.Entities.DbSet;
+﻿namespace CustomerPurchaseRecord.Entities.Dtos.Requests;
 
-public class TransactionDetails : BaseEntity
+public class CreateTransactionDetailDto
 {
     public string ProductName { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public int Qty { get; set; }
-    public Customer? Customer { get; set; }
     public int CustomerId { get; set; }
-
 }

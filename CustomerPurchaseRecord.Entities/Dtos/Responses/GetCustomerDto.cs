@@ -1,4 +1,6 @@
-﻿namespace CustomerPurchaseRecord.Entities.Dtos.Responses;
+﻿using CustomerPurchaseRecord.Entities.DbSet;
+
+namespace CustomerPurchaseRecord.Entities.Dtos.Responses;
 
 public class GetCustomerDto
 {
@@ -6,4 +8,5 @@ public class GetCustomerDto
     public string Firstname { get; set; } = string.Empty;
     public string Lastname { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
+    public ICollection<TransactionDetails> TransactionDetails { get; set; }
 }

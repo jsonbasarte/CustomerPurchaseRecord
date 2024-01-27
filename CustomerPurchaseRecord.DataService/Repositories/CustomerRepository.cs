@@ -16,7 +16,8 @@ public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
     {
         try
         {
-            return await _dbSet.ToListAsync();
+            var result = await _dbSet.ToListAsync();
+            return result;
         }
         catch (Exception e) 
         {
