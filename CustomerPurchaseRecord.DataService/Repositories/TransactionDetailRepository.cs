@@ -24,4 +24,17 @@ public class TransactionDetailRepository : BaseRepository<TransactionDetails>, I
             throw;
         }
     }
+
+    public async Task<IEnumerable<TransactionDetails>> GetCustomerTransaction(int customerId)
+    {
+        try
+        {
+            return await _dbSet.Where(c => c.CustomerId == customerId).OrderBy(t => t.CreatedDate).ToListAsync();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "{Repo} Get Customer Transaction function error", typeof(CustomerRepository));
+            throw;
+        }
+    }
 }

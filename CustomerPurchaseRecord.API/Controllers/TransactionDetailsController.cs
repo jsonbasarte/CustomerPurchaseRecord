@@ -17,7 +17,7 @@ public class TransactionDetailsController : BaseController
     {
     }
 
-    [HttpGet]
+    [HttpGet]                   
     public async Task<IActionResult> GetAll()
     {
         var transactionDetails = await _unitOfWork.TransactionDetails.GetAll();
@@ -25,12 +25,20 @@ public class TransactionDetailsController : BaseController
         return Ok(_mapper.Map<IEnumerable<GetTransactionDetailDto>>(transactionDetails));
     }
 
+    [HttpGet("customer/{customerId}")]
+    public async Task<IActionResult> GetCustomerTransaction(int customerId)
+    {
+        var customerTransaction = await _unitOfWork.TransactionDetails.GetCustomerTransaction(customerId);
+
+        return Ok(_mapper.Map<IEnumerable<GetTransactionDetailDto>>(customerTransaction));
+    }
+
     [HttpGet("{transactionId}")]
     public async Task<IActionResult> GetTransactionDetail(int transactionId)
     {
         var result = await _unitOfWork.TransactionDetails.GetById(transactionId);
 
-        return Ok(_mapper.Map<GetTransactionDetailDto>(result));
+        return Ok(_mapper.Map<IEnumerable<GetTransactionDetailDto>>(result));
     }
 
     [HttpPost]
@@ -44,6 +52,6 @@ public class TransactionDetailsController : BaseController
 
         await _unitOfWork.SaveAsync();
 
-        return CreatedAtAction(nameof(GetTransactionDetail), new { transactionId = result.Id }, result);
+        return CreatedAtAction(nameof(GetTransactionDetail), new { transactionId = result.CustomerId }, result);
     }
 }

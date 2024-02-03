@@ -22,5 +22,11 @@ public class AppDbContext : DbContext
             .OnDelete(DeleteBehavior.NoAction)
             .HasConstraintName("FK_TransactionDetail_Customer");
         });
+
+        //modelBuilder.Entity<Customer>()
+        //    .HasMany(c => c.TransactionDetails)
+        //    .WithOne(c => c.Customer)
+        //    .HasForeignKey(c => c.CustomerId)
+        //    .IsRequired();
     }
 }

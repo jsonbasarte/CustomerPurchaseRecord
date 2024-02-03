@@ -7,4 +7,5 @@ public interface IBaseRepositories<T> where T : class
     Task<bool> Add(T entity);
     Task<bool> Update(T entity);
     Task<bool> Delete(T entity);
+    Task<IEnumerable<T>> GetCustomerTransaction(int customerId);
 }

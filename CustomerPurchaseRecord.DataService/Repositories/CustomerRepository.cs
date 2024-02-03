@@ -16,12 +16,34 @@ public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
     {
         try
         {
-            var result = await _dbSet.ToListAsync();
-            return result;
+            return await _dbSet.ToListAsync();
         }
         catch (Exception e) 
         {
             _logger.LogError(e, "{Repo} Get All function error", typeof(CustomerRepository));
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<Customer>> SearchByCustomerName(string customerName)
+    {
+        try
+        {
+
+            if (customerName == null)
+            {
+                return await _dbSet.ToListAsync();
+            }
+
+            var result = await _dbSet
+                .Where(c => c.FirstName.StartsWith(customerName))
+                .ToListAsync();
+
+            return result;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "{Repo} SearchByCustomerName function error", typeof(CustomerRepository));
             throw;
         }
     }

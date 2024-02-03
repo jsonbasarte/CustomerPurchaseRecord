@@ -11,10 +11,10 @@ public class DomainToResponse : Profile
         CreateMap<Customer, GetCustomerDto>()
             .ForMember(
                 destination => destination.CustomerId,
-                option => option.MapFrom(src => src.Id))
-            .ForMember(
-                destination => destination.TransactionDetails,
-                option => option.MapFrom(src => src.TransactionDetails));
+                option => option.MapFrom(src => src.Id));
+            //.ForMember(
+            //    destination => destination.TransactionDetails,
+            //    option => option.MapFrom(src => src.TransactionDetails));
 
         CreateMap<TransactionDetails, GetTransactionDetailDto>();
     }

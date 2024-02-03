@@ -24,16 +24,24 @@ public class CustomerController : BaseController
         return Ok(_mapper.Map<IEnumerable<GetCustomerDto>>(customer));
     }
 
-    [HttpGet("{customerId}")]
-    public async Task<IActionResult> GetCustomer(int customerId)
+    [HttpGet("{customerName}")]
+    public async Task<IActionResult> SearchCustomerByName(string customerName)
     {
-        var customer = await _unitOfWork.Customers.GetById(customerId);
+        var customer = await _unitOfWork.Customers.SearchByCustomerName(customerName);
 
-        if (customer == null) 
-            return NotFound();
-
-        return Ok(_mapper.Map<GetCustomerDto>(customer));
+        return Ok(_mapper.Map<IEnumerable<GetCustomerDto>>(customer));
     }
+
+    //[HttpGet("{customerId}")]
+    //public async Task<IActionResult> GetCustomer(int customerId)
+    //{
+    //    var customer = await _unitOfWork.Customers.GetById(customerId);
+
+    //    if (customer == null) 
+    //        return NotFound();
+
+    //    return Ok(_mapper.Map<GetCustomerDto>(customer));
+    //}
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCustomerDto customer)
@@ -47,6 +55,6 @@ public class CustomerController : BaseController
 
         await _unitOfWork.SaveAsync();
 
-        return CreatedAtAction(nameof(GetCustomer), new { customerId = result.Id }, result);
+        return Ok();
     }
 }

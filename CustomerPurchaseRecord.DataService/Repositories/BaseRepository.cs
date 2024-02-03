@@ -8,7 +8,7 @@ namespace CustomerPurchaseRecord.DataService.Repositories;
 public class BaseRepository<T> : IBaseRepositories<T> where T : class
 {
     public readonly ILogger _logger;
-    private readonly AppDbContext _dbContext;
+    public readonly AppDbContext _dbContext;
     internal DbSet<T> _dbSet;
 
     public BaseRepository(AppDbContext dbContext, ILogger logger)
@@ -40,6 +40,11 @@ public class BaseRepository<T> : IBaseRepositories<T> where T : class
     }
 
     public virtual Task<bool> Update(T entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual Task<IEnumerable<T>> GetCustomerTransaction(int customerId)
     {
         throw new NotImplementedException();
     }
