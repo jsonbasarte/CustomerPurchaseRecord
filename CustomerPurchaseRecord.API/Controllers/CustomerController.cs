@@ -55,6 +55,6 @@ public class CustomerController : BaseController
 
         await _unitOfWork.SaveAsync();
 
-        return Ok();
+        return Ok(result);
     }
 }
