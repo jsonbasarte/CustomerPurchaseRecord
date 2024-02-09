@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
@@ -30,6 +31,10 @@
     <ProjectReference Include="..\CustomerPurchaseRecord.API\CustomerPurchaseRecord.API.csproj" />
     <ProjectReference Include="..\CustomerPurchaseRecord.DataService\CustomerPurchaseRecord.DataService.csproj" />
     <ProjectReference Include="..\CustomerPurchaseRecord.Entities\CustomerPurchaseRecord.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

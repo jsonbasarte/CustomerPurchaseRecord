@@ -40,7 +40,8 @@ public class TestCustomerController
         // Assert
         result.Should().BeOfType<OkObjectResult>();
         mockUnitOfWork.Verify(x => x.Customers.GetAll(), Times.Once);
-
+        var model = Assert.IsAssignableFrom<IEnumerable<GetCustomerDto>>(result.Value);
+        Assert.Equal(2, model.Count);
     }
 
     [Fact]
@@ -83,6 +84,7 @@ public class TestCustomerController
 
         // Assert
         result.Should().BeOfType<OkObjectResult>();
-
     }
+
+
 }
